@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "main/main.html" %}
+{% block content %}
+<div class="wrapper row3" id="foodApp">
+  <main class="container clear">
+      <table class="table">
 
-</body>
-</html>
+      </table>
+  </main>
+</div>
+<script>
+    let app=Vue.createApp({
+       delimiters:['[[',']]'],
+       data(){
+          return {
+            fno:{{fno}},
+            detail:{}
+          }
+       }
+    }).mount("#foodApp")
+</script>
+{% endblock %}

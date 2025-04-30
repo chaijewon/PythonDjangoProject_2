@@ -36,4 +36,22 @@ def foodListData(page):
         models.disConnection(conn,cur)
 
     return food_list,total[0]
+def foodDetailData(fno):
+    try:
+        conn=models.getConnection()
+        cur=conn.cursor()
+        sql=f"""
+            SELECT fno,name,poster,address,phone,
+                   time,theme,content,type,parking
+            FROM project_food
+            WHERE fno={fno}
+            """
+        cur.execute(sql)
+        food_detail=cur.fetchone()
+    except Exception as e:
+        print(e)
+    finally:
+        models.disConnection(conn,cur)
+
+    return food_detail
 

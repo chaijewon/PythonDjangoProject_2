@@ -8,7 +8,7 @@
           <header class="heading">맛집 목록</header>
           <ul class="nospace clear">
             <li v-for="r,idx in food_list" :class="idx%4===0?'one_quarter first':'one_quarter'">
-              <a :href="'/web/recipe/detail_before/?fno='+r.fno">
+              <a :href="'/web/food/detail/?fno='+r.fno">
                 <img :src="'https://www.menupan.com'+r.poster" :title="r.name">
               </a>
             </li>

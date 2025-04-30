@@ -9,5 +9,7 @@ urlpatterns=[
     path('recipe/detail_before/',recipeViews.recipe_before),
     path('recipe/detail/',recipeViews.recipe_detail),
     path('food/list/',foodViews.food_list),
-    path('food/list_vue/',foodViews.food_list_vue)
+    path('food/list_vue/',foodViews.food_list_vue),
+    path('food/detail/',foodViews.food_detail),
+    path('food/detail_vue/',foodViews.food_detail_vue)
 ]
