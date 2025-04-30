@@ -52,7 +52,26 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+CORS_ORIGIN_ALLOW_ALL=True
+CORS_ALLOW_CREDENTIALS=True
+#CrossOrgin(origins="*")
+CORS_ALLOW_METHODS=(
+    'GET',
+    'POST',
+    'OPTIONS',
+    'DELETE',
+    'PUT'
+)
+CORS_ALLOW_HEADERS=(
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'origin',
+    'user-agent',
+    'c-csrftoken',
+    'x-requestes-with'
+)
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [

@@ -1,10 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "main/main.html" %}
+{% block content %}
+<div class="wrapper row3" id="foodApp">
+  <main class="container clear">
+    <div class="content">
+      <div id="gallery">
+        <figure>
+          <header class="heading">맛집 목록</header>
+          <ul class="nospace clear">
+            <li v-for="r,idx in food_list" :class="idx%4===0?'one_quarter first':'one_quarter'">
+              <a :href="'/web/recipe/detail_before/?fno='+r.fno">
+                <img :src="'https://www.menupan.com'+r.poster" :title="r.name">
+              </a>
+            </li>
+          </ul>
+          <figcaption>Gallery Description Goes Here</figcaption>
+        </figure>
+      </div>
+      <nav class="pagination">
+        <ul>
 
-</body>
-</html>
+          <li v-if="startPage>1"><a class="link" @click="prev()">&laquo; Previous</a></li>
+
+          <li v-for="i in range(startPage,endPage)" :class="i===curpage?'current':''"><a class="link" @click="pageChange(i)">[[i]]</a></li>
+
+          <li v-if="endPage<totalpage"><a class="link" @click="next()">Next &raquo;</a></li>
+
+        </ul>
+      </nav>
+      </div>
+    <div class="clear"></div>
+  </main>
+</div>
+<script>
+  let foodApp=Vue.createApp({
+    delimiters:['[[',']]'],
+    data(){
+      return {
+        food_list:[],
+        curpage:1,
+        startPage:0,
+        endPage:0,
+        totalpage:0
+      }
+    },
+    mounted(){
+       this.dataRecv()
+    },
+    methods:{
+       prev(){
+         this.curpage=this.startPage-1
+         this.dataRecv()
+       },
+       next(){
+         this.curpage=this.endPage+1
+         this.dataRecv()
+       },
+       pageChange(page){
+         this.curpage=page
+         this.dataRecv()
+       },
+       range(start,end){
+          let arr=[]
+          let len=end-start
+          for(let i=0;i<=len;i++)
+          {
+             arr[i]=start
+             start++
+          }
+          return arr
+       },
+       dataRecv(){
+         axios.get('/web/food/list_vue/',{
+           params:{
+              page:this.curpage
+           }
+         }).then(res=>{
+            console.log(res.data)
+            this.food_list=res.data.fd
+            this.curpage=res.data.curpage
+            this.totalpage=res.data.totalpage
+            this.startPage=res.data.startPage
+            this.endPage=res.data.endPage
+         }).catch(error=>{
+            console.log(error.response)
+         })
+       }
+    }
+  }).mount("#foodApp")
+</script>
+{% endblock %}
